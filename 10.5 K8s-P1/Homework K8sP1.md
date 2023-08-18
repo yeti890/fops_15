@@ -27,7 +27,9 @@
 2. В качестве ответа пришлите скриншот результата выполнения команды kubectl get po -n kube-system.
 
 **Ответ:**
-![](https://vscode.dev/github/yeti890/fops_15/blob/main/10.5%20K8s-P1/.k3s-start.png)
+
+![картинка]
+(https://vscode.dev/github/yeti890/fops_15/blob/main/10.5%20K8s-P1/.k3s-start.png)
 
 
 ------
