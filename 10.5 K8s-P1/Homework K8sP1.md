@@ -28,8 +28,7 @@
 
 **Ответ:**
 
-![картинка]
-(https://github.com/yeti890/fops_15/blob/main/10.5%20K8s-P1/.k3s-start.png)
+![картинка](https://github.com/yeti890/fops_15/blob/main/10.5%20K8s-P1/.k3s-start.png)
 
 
 
