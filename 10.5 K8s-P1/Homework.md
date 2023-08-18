@@ -100,6 +100,21 @@ spec:
 
 2. В качестве решения пришлите получившиеся команды.
 
+**Ответ:**
+
+```
+k3s kubectl exec -it redis-64d9bf79bb-5p6zn -- /bin/sh -c "ps aux"
+```
+```
+k3s kubectl logs --since=5m redis-64d9bf79bb-5p6zn
+```
+```
+k3s kubectl delete pod redis-64d9bf79bb-5p6zn
+```
+```
+k3s kubectl port-forward redis-64d9bf79bb-5p6zn 6379:6379
+```
+
 ------
 ## Дополнительные задания* (со звёздочкой)
 
