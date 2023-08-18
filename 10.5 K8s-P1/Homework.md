@@ -28,9 +28,9 @@
 
 **Ответ:**
 
-![картинка](k3s-start.png)
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/k3s-start.png)
 
-![картинка](https://github.com/yeti890/screenshots/blob/main/k3s-pods.png)
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/k3s-pods.png)
 
 ------
 ### Задание 2
@@ -75,6 +75,16 @@ spec:
 
 2. Запустите Deployment в своём кластере и добейтесь его стабильной работы.
 3. В качестве решения пришлите получившийся файл.
+
+**Ответ:**
+
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/redis-deployment.png)
+
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/redis-service.png)
+
+[redis-deployment.yml](https://github.com/yeti890/fops_15/blob/main/10.5%20K8s-P1/redis-deploy.yml)
+
+[redis-service.yml](https://github.com/yeti890/fops_15/blob/main/10.5%20K8s-P1/redis-service.yml)
 
 ------
 ### Задание 3
