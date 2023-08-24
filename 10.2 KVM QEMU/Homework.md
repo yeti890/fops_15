@@ -142,7 +142,11 @@ sudo reboot
 wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86/alpine-standard-3.18.3-x86.iso
 ```
 
-* Даем права на дистрибутив: 
+* Перемещаем дистрибутив из домашней директории и даем права
+```
+sudo mv ~/alpine-standard-3.18.3-x86.iso /media
+```
+
 ```
 sudo chmod 777 alpine-standard-3.18.3-x86.iso 
 ```
@@ -154,11 +158,9 @@ sudo virt-install \
   --ram 512 \
   --vcpus 1 \
   --disk size=2 \
-  --cdrom ~/alpine-standard-3.18.3-x86.iso
+  --cdrom /media/alpine-standard-3.18.3-x86.iso
 ```
-```
-sudo chmod 777 alpine-standard-3.18.3-x86.iso 
-```
+
  ---
 
 ### Задание 4
