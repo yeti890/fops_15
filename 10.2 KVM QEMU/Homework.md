@@ -28,7 +28,11 @@
 
 **Ответ:**
 
-
+Существует 2 типа виртуализации:
+1. Аппаратная - работает благодаря поддержке со стороны процессора. На чипе Intel реальзована в HT, VT-x, VT-d< VMDQ. На чипе AMD - AMD-V. На чипе ARM-EL2.
+1. Программная - эмулирует все железо от процессора до сетевого адаптера. Пример: KVM, QEMU, VirtualBox, XEN.
+1. Контейнерная - эмулирует несколько изолированных пространств пользователя вместо одного. Виртуальная среда запускается прямо из ядра хостовой операционной системы. Пример: Docker, Kubernetes.
+1. Хостинговая - эмулирует железо в облаке. Пример: AWS, GCP, Яндекс.
 
 ---
 
@@ -44,6 +48,8 @@
 Пример взят [с сайта](https://alpinelinux.org). 
  
  **Решение:**
+
+ Задание выполнял на ВМ Ubuntu Server 22.04 в HyperV
 
 * Устанавливаем QEMU в Ubuntu 22.04
 ```
@@ -82,7 +88,77 @@ qemu-system-i386 -hda alpine.qcow -boot d -cdrom ~/alpine-standard-3.18.3-x86.is
  
  **Решение:**
 
+* Проверяем поддержку аппаратной виртуализации:
+```
+grep -E -c "vmx|svm" /proc/cpuinfo
+```
+```
+sudo apt install -y cpu-checker
+```
+```
+kvm-ok
+```
 
+* Проверяем модуль KVM в ядре:
+```
+lsmod | grep -i kvm
+```
+
+* Если выключен - подключаем:
+```
+sudo modprobe kvm
+```
+```
+sudo modprobe kvm_intel
+```
+
+* Устанавливаем libvirt и другие зависимости
+```
+sudo apt install -y libvirt0 libvirt-daemon-system bridge-utils virtinst
+```
+
+* Проверяем службу libvirtd:
+
+```
+sudo systemctl status libvirtd.service
+```
+
+* Права - добавляем своего пользователя в группы libvirt и kvm:
+```
+sudo usermod -aG libvirt $USER
+```
+
+```
+sudo usermod -aG kvm $USER
+```
+
+* Перезагружаемся
+```
+sudo reboot
+```
+
+* Скачиваем дистрибутив будущей ВМ:
+```
+wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86/alpine-standard-3.18.3-x86.iso
+```
+
+* Даем права на дистрибутив: 
+```
+sudo chmod 777 alpine-standard-3.18.3-x86.iso 
+```
+
+* Создаем ВМ:
+```
+sudo virt-install \
+  --name alp \
+  --ram 512 \
+  --vcpus 1 \
+  --disk size=2 \
+  --cdrom ~/alpine-standard-3.18.3-x86.iso
+```
+```
+sudo chmod 777 alpine-standard-3.18.3-x86.iso 
+```
  ---
 
 ### Задание 4
