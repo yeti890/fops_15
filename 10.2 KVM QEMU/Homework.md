@@ -153,12 +153,38 @@ sudo chmod 777 alpine-standard-3.18.3-x86.iso
 
 * Создаем ВМ:
 ```
-sudo virt-install \
+virt-install \
   --name alp \
   --ram 512 \
   --vcpus 1 \
   --disk size=2 \
-  --cdrom /media/alpine-standard-3.18.3-x86.iso
+  --cdrom /media/alpine-standard-3.18.3-x86.iso \
+  --noautoconsole
+```
+
+* Подключаемся к нашей ВМ - логин - root (без пароля)
+```
+virsh console alp
+```
+
+* Выбираем быструю установку ОС 
+```
+setup-alpine -q
+```
+
+* Создаем загрузочный диск 
+```
+setup-disk
+```
+
+* Если требуется добавляем ВМ в автозагрузку
+```
+virsh autostart alp
+```
+
+* Запускаем ВМ
+```
+virsh start alp
 ```
 
  ---
