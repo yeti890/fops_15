@@ -29,6 +29,7 @@
 **Ответ:**
 
 
+
 ---
 
 ### Задание 2 
@@ -42,6 +43,29 @@
 
 Пример взят [с сайта](https://alpinelinux.org). 
  
+ **Решение:**
+
+* Устанавливаем QEMU в Ubuntu 22.04
+```
+sudo apt install qemu
+```
+* Далее скачиваем дистрибутив будущей ВМ:
+```
+wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86/alpine-standard-3.18.3-x86.iso
+```
+* Создаем диск для нашей ВМ:
+```
+qemu-img create -f qcow2 alpine.qcow 5G
+```
+* Создаем нашу ВМ со следующими параметрами:
+```
+qemu-system-i386 -hda alpine.qcow -boot d -cdrom ~/alpine-standard-3.18.3-x86.iso -m 1024 -nographic
+```
+Установка закончена:
+
+
+
+
 ---
 
 ### Задание 3 
@@ -55,6 +79,9 @@
 
 Пример взят [с сайта](https://alpinelinux.org). 
  
+ **Решение:**
+
+
  ---
 
 ### Задание 4
