@@ -187,6 +187,10 @@ virsh autostart alp
 virsh start alp
 ```
 
+* Вот что получилось:
+
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/alpine-running.png)
+
  ---
 
 ### Задание 4
