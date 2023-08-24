@@ -63,8 +63,9 @@ qemu-system-i386 -hda alpine.qcow -boot d -cdrom ~/alpine-standard-3.18.3-x86.is
 ```
 Установка закончена:
 
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/alpine-start.png)
 
-
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/psaux-alpine.png)
 
 ---
 
