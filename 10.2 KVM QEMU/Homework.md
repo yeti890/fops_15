@@ -86,9 +86,7 @@ qemu-system-i386 -hda alpine.qcow -m 1024 -nographic
 ```
 Установка закончена:
 
-[screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ps-qemu.png)
 
-[screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/qemu-running.png)
 
 
 ---
