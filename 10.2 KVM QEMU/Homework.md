@@ -67,11 +67,29 @@ qemu-img create -f qcow2 alpine.qcow 5G
 ```
 qemu-system-i386 -hda alpine.qcow -boot d -cdrom ~/alpine-standard-3.18.3-x86.iso -m 1024 -nographic
 ```
-Установка закончена:
 
+* Попадаем в консоль ВМ с началом установки ОС (root без пароля):
 ![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/alpine-start.png)
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/psaux-alpine.png)
+* Выбираем быструю установку ОС 
+```
+setup-alpine -q
+```
+
+* По окончании выключаем ВМ
+```
+poweroff
+```
+* Запускаем нашу ВМ, но без установочного дистрибутива:
+```
+qemu-system-i386 -hda alpine.qcow -m 1024 -nographic
+```
+Установка закончена:
+
+[screenshot]()
+
+[screenshot]()
+
 
 ---
 
@@ -109,7 +127,7 @@ lsmod | grep -i kvm
 sudo modprobe kvm
 ```
 ```
-sudo modprobe kvm_intel
+sudo modprobe kvm_intel (kvm_amd)
 ```
 
 * Устанавливаем libvirt и другие зависимости
@@ -139,16 +157,7 @@ sudo reboot
 
 * Скачиваем дистрибутив будущей ВМ:
 ```
-wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86/alpine-standard-3.18.3-x86.iso
-```
-
-* Перемещаем дистрибутив из домашней директории и даем права
-```
-sudo mv ~/alpine-standard-3.18.3-x86.iso /media
-```
-
-```
-sudo chmod 777 alpine-standard-3.18.3-x86.iso 
+wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86/alpine-standard-3.18.3-x86.iso -P /tmp
 ```
 
 * Создаем ВМ:
@@ -158,7 +167,7 @@ virt-install \
   --ram 512 \
   --vcpus 1 \
   --disk size=2 \
-  --cdrom /media/alpine-standard-3.18.3-x86.iso \
+  --cdrom /tmp/alpine-standard-3.18.3-x86.iso \
   --noautoconsole
 ```
 
@@ -187,7 +196,7 @@ virsh autostart alp
 virsh start alp
 ```
 
-* Вот что получилось:
+* В результате получаем:
 
 ![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/alpine-running.png)
 
