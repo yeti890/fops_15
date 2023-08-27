@@ -246,7 +246,7 @@ sudo apt install qemu libvirt0 libvirt-daemon-system libvirt-clients bridge-util
 sudo systemctl status libvirtd.service
 ```
 
-* Теперь разберемся с правами
+* Теперь разберемся с правами:
 ```
 sudo usermod -aG libvirt-qemu $USER
 ```
@@ -256,6 +256,43 @@ sudo chgrp libvirt-qemu /kvm/{hdd,iso}
 ```
 sudo chmod g+w /kvm/hdd
 ```
+
+* Скачиваем образы будущих ВМ:
+```
+wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/aarch64/alpine-standard-3.18.3-aarch64.iso -P /kvm/iso
+```
+```
+wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/ppc64le/alpine-standard-3.18.3-ppc64le.iso -P /kvm/iso
+```
+
+* Создаем диски для ВМ:
+```
+qemu-img create -f qcow2 /kvm/hdd/aarch.qcow 2G
+```
+```
+qemu-img create -f qcow2 /kvm/hdd/ppc64.qcow 2G
+```
+
+* Запускаем установку ВМ:
+```
+qemu-system-aarch64 -hda /kvm/hdd/aarch.qcow -boot d -cdrom /kvm/iso/alpine-standard-3.18.3-aarch64.iso -m 1024 -nographic
+```
+```
+qemu-system-ppc64 -hda /kvm/hdd/ppc64.qcow -boot d -cdrom /kvm/iso/alpine-standard-3.18.3-ppc64le.iso -m 1024 -nographic
+```
+
+* Устанавливаем ОС на ВМ аналогично заданиям выше
+* Устанавливаем GNS3:
+```
+sudo add-apt-repository ppa:gns3/ppa
+sudo apt update                                
+sudo apt install gns3-server
+```
+
+
+
+
+
 
 ---
 
