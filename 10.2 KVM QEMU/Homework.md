@@ -301,7 +301,7 @@ http://192.168.10.150:3080/
 ```
 * Создаем проект, добавляем ВМ Qemu, создаем конфиг сети, стартуем, готово:
 
-![screenshot]()
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/gns3-qemu.png)
 
 ---
 
