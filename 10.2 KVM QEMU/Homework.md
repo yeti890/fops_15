@@ -249,50 +249,59 @@ sudo systemctl status libvirtd.service
 * Теперь разберемся с правами:
 ```
 sudo usermod -aG libvirt-qemu $USER
-```
-```
 sudo chgrp libvirt-qemu /kvm/{hdd,iso}
-```
-```
 sudo chmod g+w /kvm/hdd
 ```
 
 * Скачиваем образы будущих ВМ:
 ```
-wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/aarch64/alpine-standard-3.18.3-aarch64.iso -P /kvm/iso
-```
-```
-wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/ppc64le/alpine-standard-3.18.3-ppc64le.iso -P /kvm/iso
+sudo wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86/alpine-standard-3.18.3-x86.iso -P /kvm/iso
 ```
 
 * Создаем диски для ВМ:
 ```
-qemu-img create -f qcow2 /kvm/hdd/aarch.qcow 2G
+sudo qemu-img create -f qcow2 ~/GNS3/images/alp1.qcow 2G
 ```
 ```
-qemu-img create -f qcow2 /kvm/hdd/ppc64.qcow 2G
+sudo qemu-img create -f qcow2 ~/GNS3/images/alp2.qcow 2G
 ```
 
-* Запускаем установку ВМ:
+* Запускаем установку ВМ ARM:
 ```
-qemu-system-aarch64 -hda /kvm/hdd/aarch.qcow -boot d -cdrom /kvm/iso/alpine-standard-3.18.3-aarch64.iso -m 1024 -nographic
+sudo qemu-system-i386 -hda ~/GNS3/images/alp1.qcow -boot d -cdrom /kvm/iso/alpine-standard-3.18.3-x86.iso -m 1024 -nographic
 ```
 ```
-qemu-system-ppc64 -hda /kvm/hdd/ppc64.qcow -boot d -cdrom /kvm/iso/alpine-standard-3.18.3-ppc64le.iso -m 1024 -nographic
+sudo qemu-system-i386 -hda ~/GNS3/images/alp2.qcow -boot d -cdrom /kvm/iso/alpine-standard-3.18.3-x86.iso -m 1024 -nographic
 ```
 
 * Устанавливаем ОС на ВМ аналогично заданиям выше
-* Устанавливаем GNS3:
+* Устанавливаем GNS3 и запускаем его:
 ```
 sudo add-apt-repository ppa:gns3/ppa
 sudo apt update                                
 sudo apt install gns3-server
+gns3server
 ```
 
+* Так как поддержки KVM у меня нет, будем ее отключать:
+```
+nano ~/.config/GNS3/2.2/gns3_server.conf 
+```
 
+* Добавляем запись:
+```
+[Qemu]
+enable_hardware_acceleration = False
+require_hardware_acceleration = False
+```
 
+* Идем в веб-интерфейс GNS3:
+```
+http://192.168.10.150:3080/
+```
+* Создаем проект, добавляем ВМ Qemu, создаем конфиг сети, стартуем, готово:
 
-
+![screenshot]()
 
 ---
 
