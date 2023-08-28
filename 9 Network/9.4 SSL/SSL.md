@@ -93,9 +93,7 @@ openssl x509 -subject -issuer -noout -in ca.pem
 openssl x509 -subject -issuer -noout -in certificate.crt
 openssl verify certificate.crt
 ```
-![screenshot]()
-
-
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ssl.png)
 
 ------
 ### Правила приема работы
