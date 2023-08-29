@@ -80,7 +80,7 @@ ip route 192.168.2.0 255.255.255.0 10.1.1.2
 
 После проверки настроек адаптера COMP5, проверяем конфиги марщрутизаторов. COMP5 добавлен в accesslist deny на Router0:
 
-![screenshot]()
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/access-list-deny.png)
 
 Исправляем это:
 ```
@@ -88,7 +88,7 @@ no access-list 1 deny host 192.168.2.5
 ```
 Проверяем - работает:
 
-![screenshot]()
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check-2.png)
 
 ---
 
