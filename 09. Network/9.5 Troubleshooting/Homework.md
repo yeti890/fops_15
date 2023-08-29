@@ -61,7 +61,7 @@ ip route 192.168.2.0 255.255.255.0 10.1.1.2
 ![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check.png)
 
 > [!IMPORTANT]
->Исправленный .pkt - [скачать](https://github.com/yeti890/fops_15/blob/main/9%20Network/9.5%20Troubleshooting/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%961%20(8.2.0).pkt)
+>Исправленный .pkt - [скачать](/09.%20Network/9.5%20Troubleshooting/Задание%20№1%20(8.2.0).pkt)
 
 ---
 
@@ -95,7 +95,7 @@ no access-list 1 deny host 192.168.2.5
 ![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check-2.png)
 
 > [!IMPORTANT]
->Исправленный .pkt - [скачать](https://github.com/yeti890/fops_15/blob/main/9%20Network/9.5%20Troubleshooting/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%962%20(8.2.0).pkt)
+>Исправленный .pkt - [скачать](/09.%20Network/9.5%20Troubleshooting/Задание%20№2%20(8.2.0).pkt)
 ---
 
 
@@ -129,7 +129,7 @@ no access-list 1 deny host 192.168.2.5
 ![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check-3.png)
 
 > [!IMPORTANT]
->Исправленный .pkt - [скачать](https://github.com/yeti890/fops_15/blob/main/9%20Network/9.5%20Troubleshooting/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%963%20(8.2.0).pkt)
+>Исправленный .pkt - [скачать](/09.%20Network/9.5%20Troubleshooting/Задание%20№3%20(8.2.0).pkt)
 
 ---
 
@@ -159,7 +159,7 @@ no access-list 1 deny host 192.168.2.5
 ![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check-4.png)
 
 > [!IMPORTANT]
-> Исправленный .pkt - [скачать](https://github.com/yeti890/fops_15/blob/main/9%20Network/9.5%20Troubleshooting/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%964%20(8.2.0).pkt)
+> Исправленный .pkt - [скачать](/09.%20Network/9.5%20Troubleshooting/Задание%20№4%20(8.2.0).pkt)
 
 ----
 
