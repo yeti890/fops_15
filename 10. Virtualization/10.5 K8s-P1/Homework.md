@@ -82,9 +82,9 @@ spec:
 
 ![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/redis-service.png)
 
-[redis-deployment.yml](https://github.com/yeti890/fops_15/blob/main/10.5%20K8s-P1/redis-deploy.yml)
+[redis-deployment.yml](10. Virtualization/10.5 K8s-P1/redis-deploy.yml)
 
-[redis-service.yml](https://github.com/yeti890/fops_15/blob/main/10.5%20K8s-P1/redis-service.yml)
+[redis-service.yml](10. Virtualization/10.5 K8s-P1/redis-service.yml)
 
 ------
 ### Задание 3
