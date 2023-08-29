@@ -46,8 +46,9 @@
 
     **Вывод:** проблема маршрутизации между сегментами сети
 1. Проверяем маршруты на Router0 и Router1 - **их нет**
-![screenshot]()
-![screenshot]()
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/router-0.png)
+
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/router-1.png)
 
 1. Добавляем их:
 ```
@@ -56,7 +57,7 @@ ip route 192.168.2.0 255.255.255.0 10.1.1.2
 ```
 1. Проверяем, все работает
 
-![screenshot]()
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check.png)
 
 ---
 
