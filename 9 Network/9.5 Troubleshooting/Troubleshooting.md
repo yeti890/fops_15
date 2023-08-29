@@ -152,14 +152,14 @@ no access-list 1 deny host 192.168.2.5
 
 Проблема была в запрещающем правиле Firewall:
 
-![screenshot]()
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/firewall-deny.png)
 
 После удаления правила все работает:
 
-![screenshot]()
+![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check-4.png)
 
 > [!IMPORTANT]
-> Исправленный .pkt - [скачать]()
+> Исправленный .pkt - [скачать](https://github.com/yeti890/fops_15/blob/main/9%20Network/9.5%20Troubleshooting/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%964%20(8.2.0).pkt)
 
 ----
 
