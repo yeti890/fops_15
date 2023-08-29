@@ -42,6 +42,31 @@
 5. Запустите службу DHCP:
     *sudo systemctl start isc-dhcp-server.service*
 
+#### Решение:
+Произведем настройку DHCP сервера на AlmaLinux
+- Устанавливаем DHCP сервер и редактор:
+```
+sudo dnf -y install dhcp-server nano
+```
+- Создаем конфиг файл с необходимыми параметрами:
+```
+sudo /etc/dhcp/dhcpd.conf
+```
+~~~
+option domain-name     "srv.netology";
+option domain-name-servers     dlp.srv.netology;
+default-lease-time 600;
+max-lease-time 28800;
+authoritative;
+
+subnet 192.168.123.0 netmask 255.255.255.0 {
+    range dynamic-bootp 192.168.123.100 192.168.123.254;
+    option broadcast-address 192.168.123.255;
+    option routers 192.168.123.1;
+~~~
+
+
+
 ### Задание 2.
 
 #### Описание задания
