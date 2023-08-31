@@ -44,28 +44,67 @@
 
 #### Решение:
 Произведем настройку DHCP сервера на AlmaLinux
+
 - Устанавливаем DHCP сервер и редактор:
 ```
 sudo dnf -y install dhcp-server nano
 ```
+
 - Создаем конфиг файл с необходимыми параметрами:
 ```
 sudo /etc/dhcp/dhcpd.conf
 ```
 ~~~
-option domain-name     "srv.netology";
-option domain-name-servers     dlp.srv.netology;
+option domain-name "srv.dhcp.pxe";
+option domain-name-servers 8.8.8.8, 8.8.4.4;
 default-lease-time 600;
 max-lease-time 28800;
 authoritative;
 
-subnet 192.168.123.0 netmask 255.255.255.0 {
-    range dynamic-bootp 192.168.123.100 192.168.123.254;
-    option broadcast-address 192.168.123.255;
-    option routers 192.168.123.1;
+subnet 192.168.254.0 netmask 255.255.255.0 {
+    range dynamic-bootp 192.168.254.100 192.168.254.200;
+    option broadcast-address 192.168.254.255;
+    option routers 192.168.254.1;
+    interface eth1;
+}
 ~~~
 
+- Добавим разрешающее правило в firewall и сохраним его:
+```
+sudo firewall-cmd --add-service=dhcp
+```
+```
+sudo firewall-cmd --runtime-to-permanent
+```
 
+- Настроим внутренний сетевой интерфейс для работы с DHCP сервером:
+```
+sudo nano /etc/sysconfig/network-scripts/ifcfg-eth1
+```
+- Запишем конфигурацию:
+~~~
+TYPE=Ethernet
+BOOTPROTO=none
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+IPADDR=192.168.254.1
+NETMASK=255.255.255.0
+DNS1=8.8.8.8
+~~~
+
+- Перезапустим службу:
+```
+sudo systemctl restart NetworkManager
+```
+
+- На текущий момент у нас есть внешний сетевой интерфейс для доступа к интернету и внутренний на который настроен dhcp сервер. Попробуем подключить к нему другую ВМ и проверим его работу:
+
+![screenshot]()
+
+![screenshot]()
+
+![screenshot]()
 
 ### Задание 2.
 
