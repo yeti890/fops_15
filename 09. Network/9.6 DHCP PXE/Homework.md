@@ -43,7 +43,7 @@
     *sudo systemctl start isc-dhcp-server.service*
 
 #### Решение:
-Произведем настройку DHCP сервера на AlmaLinux
+Произведем настройку DHCP сервера на AlmaLinux 9.2
 
 - Устанавливаем DHCP сервер и редактор:
 ```
@@ -52,7 +52,7 @@ sudo dnf -y install dhcp-server nano
 
 - Создаем конфиг файл с необходимыми параметрами:
 ```
-sudo /etc/dhcp/dhcpd.conf
+sudo nano /etc/dhcp/dhcpd.conf
 ```
 ~~~
 option domain-name "srv.dhcp.pxe";
@@ -98,13 +98,33 @@ DNS1=8.8.8.8
 sudo systemctl restart NetworkManager
 ```
 
-- На текущий момент у нас есть внешний сетевой интерфейс для доступа к интернету и внутренний на который настроен dhcp сервер. Попробуем подключить к нему другую ВМ и проверим его работу:
+- Теперь включим пересылку трафика:
+```
+sudo su
+```
+```
+echo "net.ipv4.ip_forward = 1" >>/etc/sysctl.conf
+```
+```
+sysctl -p
+```
 
-![screenshot]()
+- И включим "маскарадинг":
+```
+sudo firewall-cmd --permanent --add-masquerade
+```
 
-![screenshot]()
+```
+sudo reboot
+```
 
-![screenshot]()
+- Проверяем работу DHCP сервера, подключаем к нему DHCP клиента:
+
+![screenshot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/dhcp-status.png)
+
+![screenshot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/ping-client.png)
+
+---
 
 ### Задание 2.
 
