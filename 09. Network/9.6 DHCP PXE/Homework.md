@@ -113,7 +113,6 @@ sysctl -p
 ```
 sudo firewall-cmd --permanent --add-masquerade
 ```
-
 ```
 sudo reboot
 ```
@@ -123,6 +122,8 @@ sudo reboot
 ![screenshot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/dhcp-status.png)
 
 ![screenshot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/ping-client.png)
+
+![screenshot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/ip%20addr.png)
 
 ---
 
@@ -287,6 +288,7 @@ put upload.txt upload.success
 
 ![screenshoot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/tftp-upload.png)
 
+---
 ### Правила приема работы
 - В личном кабинете отправлена ссылка на ваш Google документ, в котором прописан код каждого скрипта и скриншоты, демонстрирующие корректную работу скрипта
 - В документе настроены права доступа “Просматривать могут все в Интернете, у кого есть ссылка”
