@@ -170,7 +170,7 @@ sudo mkdir -p /tftp
 sudo chmod -R 777 /tftp/
 ```
 ```
-sudo chown -R nobody:nogroup /tftp/
+sudo chown -R 65534:65534 /tftp/
 ```
 
 - Скопируем файлы конфигураций TFTP для systemd:
@@ -191,7 +191,7 @@ Requires=tftp-server.socket
 Documentation=man:in.tftpd
 
 [Service]
-ExecStart=/usr/sbin/in.tftpd -c -p -s /tftpboot
+ExecStart=/usr/sbin/in.tftpd -c -p -s /tftp
 StandardInput=socket
 
 [Install]
@@ -211,6 +211,8 @@ sudo systemctl enable --now tftp-server
 sudo systemctl status tftp-server
 ```
 
+![screenshoot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/tftp-status.png)
+
 - Добавляем правило в брандмауер:
 ```
 sudo firewall-cmd --add-service=tftp --permanent
@@ -218,43 +220,72 @@ sudo firewall-cmd --add-service=tftp --permanent
 ```
 sudo firewall-cmd --reload
 ```
+- SE linux блокирует подключения по TFTP поэтому проверим его статус и отключим его:
+```
+getenforce
+```
+```
+sudo setenforce 0
+```
 
  - Поместим тестовые файлы в директорию TFTP:
 ```
-sudo touch /tftpboot/file{1..3}.txt
+sudo touch /tftp/file{1..2}.txt
 ```
 ```
-echo "Hello File 1" | sudo tee /tftpboot/file1.txt
+echo "Hello File 1" | sudo tee /tftp/file1.txt
 ```
 ```
-echo "Hello File 2" | sudo tee /tftpboot/file2.txt
-```
-```
-echo "Hello File 3" | sudo tee /tftpboot/file3.txt
+echo "Hello File 2" | sudo tee /tftp/file2.txt
 ```
 
 
 - Теперь настроим клиента:
 ```
-sudo yum install tftp -y
+sudo apt update
+```
+```
+sudo apt install tftp -y
+```
+
+- Создадим директорию для обмена файлами:
+```
+mkdir tftp_transfer
+```
+
+- Подготовим файл для выгрузки на сервер:
+```
+touch ~/tftp_transfer/upload.txt
+```
+```
+echo "Hello Upload" | sudo tee ~/tftp_transfer/upload.txt
+```
+
+- Переходим в необходимую директорию и запускаем клиента
+```
+cd ~/tftp_transfer
 ```
 ```
 tftp 192.168.254.1
 ```
 
-- Прочитаем файлы на сервере:
+- Скачиваем нужные нам файлы, если нужно поменять имя файла меняем:
 ```
-cat file1.txt file2.txt file3.txt 
+get file1.txt file1.success
+```
+```
+get file2.txt
+```
+- Теперь попробуем загрузить наш файл на сервер:
+```
+put upload.txt upload.success
 ```
 
-- Скачаем один из них:
-```
-get file1.txt ~/test
-```
-- Загрузим файл на сервер:
-```
-put ~/test/upload.txt
-```
+- Проверяем что у нас получилось:
+
+![screenshoot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/tftp-download.png)
+
+![screenshoot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/tftp-upload.png)
 
 ### Правила приема работы
 - В личном кабинете отправлена ссылка на ваш Google документ, в котором прописан код каждого скрипта и скриншоты, демонстрирующие корректную работу скрипта
