@@ -150,6 +150,112 @@ sudo reboot
 9. Проверьте работоспособность PXE-сервера, либо загрузив с него файл по сети, либо подключившись TFTP-клиентом.
 10. Выполните скриншоты и ответ внесите в комментарии к решению задания. 
 
+#### Решение:
+
+- Установим TFTP сервер:
+
+```
+sudo dnf makecache --refresh
+```
+```
+sudo dnf install -y tftp-server tftp
+```
+
+- Создадим для него директорию и назначим права:
+
+```
+sudo mkdir -p /tftp
+```
+```
+sudo chmod -R 777 /tftp/
+```
+```
+sudo chown -R nobody:nogroup /tftp/
+```
+
+- Скопируем файлы конфигураций TFTP для systemd:
+
+```
+sudo cp /usr/lib/systemd/system/tftp.service /etc/systemd/system/tftp-server.service
+```
+```
+sudo cp /usr/lib/systemd/system/tftp.socket /etc/systemd/system/tftp-server.socket
+```
+
+- Отредактируем файл сервиса TFTP:
+```
+sudo tee /etc/systemd/system/tftp-server.service<<EOF
+[Unit]
+Description=Tftp Server
+Requires=tftp-server.socket
+Documentation=man:in.tftpd
+
+[Service]
+ExecStart=/usr/sbin/in.tftpd -c -p -s /tftpboot
+StandardInput=socket
+
+[Install]
+WantedBy=multi-user.target
+Also=tftp-server.socket
+EOF
+```
+
+- Запускаем сервис:
+```
+sudo systemctl daemon-reload
+```
+```
+sudo systemctl enable --now tftp-server
+```
+```
+sudo systemctl status tftp-server
+```
+
+- Добавляем правило в брандмауер:
+```
+sudo firewall-cmd --add-service=tftp --permanent
+```
+```
+sudo firewall-cmd --reload
+```
+
+ - Поместим тестовые файлы в директорию TFTP:
+```
+sudo touch /tftpboot/file{1..3}.txt
+```
+```
+echo "Hello File 1" | sudo tee /tftpboot/file1.txt
+```
+```
+echo "Hello File 2" | sudo tee /tftpboot/file2.txt
+```
+```
+echo "Hello File 3" | sudo tee /tftpboot/file3.txt
+```
+
+
+- Теперь настроим клиента:
+```
+sudo yum install tftp -y
+```
+```
+tftp 192.168.254.1
+```
+
+- Прочитаем файлы на сервере:
+```
+cat file1.txt file2.txt file3.txt 
+```
+
+- Скачаем один из них:
+```
+get file1.txt ~/test
+```
+- Загрузим файл на сервер:
+```
+put ~/test/upload.txt
+```
+
 ### Правила приема работы
 - В личном кабинете отправлена ссылка на ваш Google документ, в котором прописан код каждого скрипта и скриншоты, демонстрирующие корректную работу скрипта
 - В документе настроены права доступа “Просматривать могут все в Интернете, у кого есть ссылка”
