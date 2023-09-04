@@ -47,9 +47,9 @@
     **Вывод:** проблема маршрутизации между сегментами сети
 1. Проверяем маршруты на Router0 и Router1 - *их нет*
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/router-0.png)
+![screenshot](/09.%20Network/screenshots/router-0.png)
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/router-1.png)
+![screenshot](/09.%20Network/screenshots/router-1.png)
 
 1. Добавляем их:
 ```
@@ -58,7 +58,7 @@ ip route 192.168.2.0 255.255.255.0 10.1.1.2
 ```
 1. Проверяем, все работает
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check.png)
+![screenshot](/09.%20Network/screenshots/ping-check.png)
 
 > [!IMPORTANT]
 >Исправленный .pkt - [скачать](/09.%20Network/9.5%20Troubleshooting/Задание%20№1%20(8.2.0).pkt)
@@ -84,7 +84,7 @@ ip route 192.168.2.0 255.255.255.0 10.1.1.2
 
 После проверки настроек адаптера COMP5, проверяем конфиги марщрутизаторов. *COMP5 добавлен в accesslist deny на Router0:*
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/access-list-deny.png)
+![screenshot](/09.%20Network/screenshots/access-list-deny.png)
 
 Исправляем это:
 ```
@@ -92,7 +92,7 @@ no access-list 1 deny host 192.168.2.5
 ```
 Проверяем - работает:
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check-2.png)
+![screenshot](/09.%20Network/screenshots/ping-check-2.png)
 
 > [!IMPORTANT]
 >Исправленный .pkt - [скачать](/09.%20Network/9.5%20Troubleshooting/Задание%20№2%20(8.2.0).pkt)
@@ -122,11 +122,11 @@ no access-list 1 deny host 192.168.2.5
 
 Проблема была связана в маршруте с неправильной маской подсети - исправим это:
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/wrong-mask.png)
+![screenshot](/09.%20Network/screenshots/wrong-mask.png)
 
 Теперь все работает:
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check-3.png)
+![screenshot](/09.%20Network/screenshots/ping-check-3.png)
 
 > [!IMPORTANT]
 >Исправленный .pkt - [скачать](/09.%20Network/9.5%20Troubleshooting/Задание%20№3%20(8.2.0).pkt)
@@ -152,11 +152,11 @@ no access-list 1 deny host 192.168.2.5
 
 Проблема была в запрещающем правиле Firewall:
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/firewall-deny.png)
+![screenshot](/09.%20Network/screenshots/firewall-deny.png)
 
 После удаления правила все работает:
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ping-check-4.png)
+![screenshot](/09.%20Network/screenshots/ping-check-4.png)
 
 > [!IMPORTANT]
 > Исправленный .pkt - [скачать](/09.%20Network/9.5%20Troubleshooting/Задание%20№4%20(8.2.0).pkt)

@@ -28,9 +28,9 @@
 
 **Ответ:**
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/k3s-start.png)
+![screenshot](/10.%20Virtualization/screenshots/k3s-start.png)
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/k3s-pods.png)
+![screenshot](/10.%20Virtualization/screenshots/k3s-pods.png)
 
 ------
 ### Задание 2
@@ -78,9 +78,9 @@ spec:
 
 **Ответ:**
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/redis-deployment.png)
+![screenshot](/10.%20Virtualization/screenshots/redis-deployment.png)
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/redis-service.png)
+![screenshot](/10.%20Virtualization/screenshots/redis-service.png)
 
 > [!IMPORTANT]
 >

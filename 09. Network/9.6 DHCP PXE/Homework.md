@@ -119,11 +119,11 @@ sudo reboot
 
 - Проверяем работу DHCP сервера, подключаем к нему DHCP клиента:
 
-![screenshot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/dhcp-status.png)
+![screenshot](/09.%20Network/screenshots/dhcp-status.png)
 
-![screenshot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/ping-client.png)
+![screenshot](/09.%20Network/screenshots/ping-client.png)
 
-![screenshot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/ip%20addr.png)
+![screenshot](/09.%20Network/screenshots/ip%20addr.png)
 
 ---
 
@@ -212,7 +212,7 @@ sudo systemctl enable --now tftp-server
 sudo systemctl status tftp-server
 ```
 
-![screenshoot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/tftp-status.png)
+![screenshoot](/09.%20Network/screenshots/tftp-status.png)
 
 - Добавляем правило в брандмауер:
 ```
@@ -284,9 +284,9 @@ put upload.txt upload.success
 
 - Проверяем что у нас получилось:
 
-![screenshoot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/tftp-download.png)
+![screenshoot](/09.%20Network/screenshots/tftp-download.png)
 
-![screenshoot](/09.%20Network/9.6%20DHCP%20PXE/screenshots/tftp-upload.png)
+![screenshoot](/09.%20Network/screenshots/tftp-upload.png)
 
 ---
 ### Правила приема работы

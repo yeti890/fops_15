@@ -86,7 +86,7 @@ qemu-system-i386 -hda alpine.qcow -boot d -cdrom ~/alpine-standard-3.18.3-x86.is
 ```
 
 * Попадаем в консоль ВМ с началом установки ОС (root без пароля):
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/alpine-start.png)
+![screenshot](/10.%20Virtualization/screenshots/alpine-start.png)
 
 * Выбираем быструю установку ОС 
 ```
@@ -103,9 +103,9 @@ qemu-system-i386 -hda alpine.qcow -m 1024 -nographic
 ```
 Установка закончена:
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/ps-qemu.png)
+![screenshot](/10.%20Virtualization/screenshots/ps-qemu.png)
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/qemu-running.png)
+![screenshot](/10.%20Virtualization/screenshots/qemu-running.png)
 
 
 ---
@@ -215,7 +215,7 @@ virsh start alp
 
 * В результате получаем:
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/alpine-running.png)
+![screenshot](/10.%20Virtualization/screenshots/alpine-running.png)
 
  ---
 
@@ -301,7 +301,7 @@ http://192.168.10.150:3080/
 ```
 * Создаем проект, добавляем ВМ Qemu, создаем конфиг сети, стартуем, готово:
 
-![screenshot](https://github.com/yeti890/fops_15/blob/main/screenshots/gns3-qemu.png)
+![screenshot](/10.%20Virtualization/screenshots/gns3-qemu.png)
 
 ---
 
