@@ -5,7 +5,6 @@ $TTL    604800
 			  86400		; Retry
 			2419200		; Expire
 			 604800 )	; Negative Cache TTL
-www             IN      CNAME   fops.lab.
 
 ; name servers - NS records
                 IN      NS      ns1.fops.lab.                       
@@ -15,3 +14,6 @@ ns1.fops.lab.   IN      A       192.168.254.1
 
 ; 192.168.254.0/24 - A records
 ubu.fops.lab.   IN      A       192.168.254.100
+
+; CNAME record
+www.fops.lab.   IN      CNAME   fops.lab.
