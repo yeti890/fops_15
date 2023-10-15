@@ -1,10 +1,10 @@
 version: '3'
 services:
   vologinsm-netology-db:
-    image: postgres:latest
+    image: postgres:15
     container_name: vologinsm-netology-db
     ports:
-      - "5432:5432"
+      - "0.0.0.0:5432:5432"
     volumes:
       - ./pg_data:/var/lib/postgresql/data/pgdata
     environment:
@@ -23,7 +23,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: vologinsm@ilove-netology.com
       PGADMIN_DEFAULT_PASSWORD: 123
     ports:
-      - "61231:80"
+      - "0.0.0.0:61231:80"
     networks:
       vologinsm-my-netology-hw:
         ipv4_address: 172.22.0.3
@@ -31,7 +31,7 @@ services:
       - vologinsm-netology-db
     restart: always
 
-  zabbix-server:
+  vologinsm-zabbix-netology:
     image: zabbix/zabbix-server-pgsql
     links:
       - vologinsm-netology-db
@@ -41,7 +41,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: vologinsm12!3!!
     ports:
-      - "10051:10051"
+      - "0.0.0.0:10051:10051"
     networks:
       vologinsm-my-netology-hw:
         ipv4_address: 172.22.0.4
@@ -49,7 +49,7 @@ services:
       - vologinsm-netology-db
     restart: always
 
-  zabbix_wgui:
+  vologinsm-netology-zabbix-frontend:
     image: zabbix/zabbix-web-apache-pgsql
     links:
       - vologinsm-netology-db
@@ -59,11 +59,11 @@ services:
       DB_SERVER_HOST: '172.22.0.2'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: vologinsm12!3!!
-      ZBX_SERVER_HOST: "zabbix_wgui"
+      ZBX_SERVER_HOST: "vologinsm-netology-zabbix-frontend"
       PHP_TZ: "Asia/Yekaterinburg"
     ports:
-      - "80:8080"
-      - "443:8443"
+      - "0.0.0.0:80:8080"
+      - "0.0.0.0:443:8443"
     networks:
       vologinsm-my-netology-hw:
         ipv4_address: 172.22.0.5
