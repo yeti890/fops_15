@@ -30,9 +30,10 @@
 
  ### Решение
 
-С помощью официальной документации развернем управляющий сервер Ansible на чистой вм Ubuntu Server 22.04 LTS
+С помощью официальной документации развернем управляющий сервер Ansible в Ubuntu Server 22.04 LTS
 
 Предварительно установим менеджер пакетов pip
+
 ```
 sudo apt update
 ```
@@ -65,6 +66,7 @@ ansible --version
 ansible-community --version
 ```
 ![screenshot](/11.%20Automatization%20CI-CD/screenshots/ansible-check-version.png)
+
 
 ---
 
