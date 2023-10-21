@@ -129,4 +129,19 @@ Serial - этот параметр обычно указывают в плейб
 
 ![screenshot](/11.%20Automatization%20CI-CD/screenshots/ansible-apt-2.png)
 
-2.  
+2. Проверим статус службы SSH
+
+
+![screenshoot](/11.%20Automatization%20CI-CD/screenshots/ansible-shell-status.png)
+
+![screenshoot](/11.%20Automatization%20CI-CD/screenshots/ansible-command-status.png)
+
+3. Создадим файлы
+
+![screenshot](/11.%20Automatization%20CI-CD/screenshots/ansible-copy-ilikelinux.png)
+
+Проверим содержимое:
+
+![screenshot](/11.%20Automatization%20CI-CD/screenshots/ansible-copy-check.png)
+
+---
