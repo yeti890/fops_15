@@ -1,4 +1,8 @@
-**************************************
-Welcome to Our Server!
-{{ custom_message }}
-**************************************
+#!/bin/bash
+
+ip_address=$(hostname -I | awk '{print $1}')
+hostname=$(hostname)
+
+echo "IP адрес: $ip_address"
+echo "Hostname: $hostname"
+echo "Have a nice day"
