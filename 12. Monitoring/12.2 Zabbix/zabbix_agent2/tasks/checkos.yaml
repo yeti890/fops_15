@@ -1,0 +1,3 @@
+- name: Checking Linux version
+  set_fact:
+    zabbix_repository: "{{ zabbix_repositories[ansible_facts['distribution']][ansible_facts['distribution_major_version']] }}"
