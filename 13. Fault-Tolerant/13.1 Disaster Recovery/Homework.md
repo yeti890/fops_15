@@ -43,11 +43,13 @@
 - На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.
 
 
-### Решение: [файл схемы тут](/13.%20Fault-Tolerant/13.1%20Disaster%20Recovery/hsrp_advanced.pkt)
+### Решение:
 
 ![screenshot](/13.%20Fault-Tolerant/screenshots/HSRP-0.png)
 
 ![screenshot](/13.%20Fault-Tolerant/screenshots/HSRP-1.png)
+
+#### Схема в формате pkt - [ТУТ](/13.%20Fault-Tolerant/13.1%20Disaster%20Recovery/hsrp_advanced.pkt)
 
 ------
 
