@@ -48,7 +48,7 @@ resource "yandex_compute_instance_group" "ig-ngx" {
   name                = "igroup-ngx"
   folder_id           = local.folder_id
   service_account_id  = "${yandex_iam_service_account.ig-sa.id}"
-  deletion_protection = "true"
+  deletion_protection = "false"
   instance_template {
     platform_id = "standard-v2"
     resources {
@@ -71,6 +71,7 @@ resource "yandex_compute_instance_group" "ig-ngx" {
     network_interface {
       network_id         = "${yandex_vpc_network.network-ngx.id}"
       subnet_ids         = ["${yandex_vpc_subnet.subnet-ngx.id}"]
+      nat                = true
     }
 
     metadata = {
@@ -112,7 +113,7 @@ resource "yandex_lb_network_load_balancer" "lb-ngx" {
   }
 
   attached_target_group {
-    target_group_id = yandex_compute_instance_group.ig-ngx.load_balancer.0.tg-ngx_id
+    target_group_id = yandex_compute_instance_group.ig-ngx.load_balancer.0.target_group_id
 
     healthcheck {
       name = "http"
@@ -127,9 +128,4 @@ resource "yandex_lb_network_load_balancer" "lb-ngx" {
 ### OUTPUT
 output "loadbalancer_ip_address" {
   value = yandex_lb_network_load_balancer.lb-ngx.listener.*.external_address_spec[0].*.address
-}
-
-output "public-ip-address-for" {
-  description = "Public IP address"
-  value       = yandex_compute_instance_group.ig-ngx[*].network_interface.0.nat_ip_address
 }
