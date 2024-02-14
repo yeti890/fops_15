@@ -3,3 +3,4 @@
 .ansible/
 .DS_Store
 .tutorials
+.bash
