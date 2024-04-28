@@ -1,0 +1,8 @@
+#cloud-config
+ssh_pwauth: no
+users:
+  - name: yeti
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDyjEUicLv8xyCCJzc+O7iAhxf0QOSudMOZ7xW7e/zixJtiEGjjurwR2C4BEwT3nIKD5biCZkSMjh/2VVl6l1ws/uVyXF23qV3CFJ2qh4cDX7bl78tgajOZvlb7o7y8gssfURmCH9+S9Dfg4umFkNCvx6w/cu4ND6BL/kxQJQgizurErk2ldeSzABCVVl/OBOQ/C5o+XrdotGrFc+utlVdic7HdP/610b8ffXEpRqPlrxtsODf6c/paKFThO+l2mFzdaEct+q6nGuvf8ErEGPtzNyGx0dO9NTtLiu9nFSFNm1bO3i4dlVLWaRHz4zSPTCkzYjc+JxdFJWpylzXiAU2FlPXI9WH/ygVXWAtMypfdZdINWlVXY6RdCx9VHEmmvDobhkczrOIg5q6R2CR/7TaZtdUXA0kT6mgDitjIz6kwlJTdM8ANp0eLPniohe3HKTXnl/oGauyY5yZUxx6P/AoG+0kndGarp6MrcE+Tp4M/Tgcp0ZCuHDk5AMR7Ty2l4l0= volser@MacBook-Air-Sergej.local"
