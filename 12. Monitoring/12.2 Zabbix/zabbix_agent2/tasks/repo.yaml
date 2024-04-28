@@ -1,3 +1,0 @@
-- name: Adding repository Zabbix
-  ansible.builtin.apt:
-    deb: "{{ zabbix_repository }}"
