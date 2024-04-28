@@ -1,0 +1,13 @@
+$TTL    604800
+@       IN      SOA     fops.lab.   admin.fops.lab. (
+                     2023090701         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+; name servers
+        IN      NS      ns1.fops.lab.
+
+; PTR Records
+1.254   IN      PTR     ns1.fops.lab.    ; 192.168.254.1
+100.254 IN      PTR     ubu.fops.lab.    ; 192.168.254.100

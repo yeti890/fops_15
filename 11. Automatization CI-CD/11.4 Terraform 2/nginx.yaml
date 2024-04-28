@@ -1,0 +1,19 @@
+- hosts: all
+  remote_user: yeti
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: Installing nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: true
+      vars:
+        ansible_ssh_private_key_file: "~/.ssh/id_rsa"
+          
+    - name: Starting nginx.service
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
