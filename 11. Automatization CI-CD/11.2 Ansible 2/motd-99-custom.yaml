@@ -1,0 +1,47 @@
+---
+- name: Homework add ip adress & hostname to motd
+  hosts: lab
+  become: true
+  vars:
+    custom_message: "That's message configure by Ansible"
+
+  tasks:
+    - name: Find files for change permissions
+      ansible.builtin.find:
+        paths: /etc/update-motd.d/
+        recurse: yes
+        exclude: '99-custom'
+      register: change
+
+    - name: Change files permissions
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        mode: '0400'
+      with_items: "{{ change.files }}"
+
+    - name: Disable PrintLastLog in sshd_config
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PrintLastLog'
+        line: 'PrintLastLog no'
+
+    - name: Create 99-custom motd file
+      ansible.builtin.file:
+        path: /etc/update-motd.d/99-custom
+        state: touch
+        mode: '0755'
+
+    - name: Add ip and hostname to motd message
+      ansible.builtin.template:
+        src: motd-99-custom.j2
+        dest: /etc/update-motd.d/99-custom
+
+    - name: Change motd message
+      ansible.builtin.template:
+        src: motd.j2
+        dest: /etc/motd
+
+    - name: Restart ssh
+      ansible.builtin.service:
+        name: ssh
+        state: restarted
