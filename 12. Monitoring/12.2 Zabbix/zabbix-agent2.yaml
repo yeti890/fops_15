@@ -1,0 +1,5 @@
+- name: Deploy Zabbix-agent2 on Debian 12
+  hosts: all
+  become: true
+  roles:
+    - zabbix_agent2
