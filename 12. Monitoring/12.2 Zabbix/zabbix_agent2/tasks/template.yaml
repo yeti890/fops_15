@@ -1,9 +1,0 @@
-- name: Configuring zabbix-agent
-  ansible.builtin.template:
-    src: zabbix_agent2.conf.j2
-    dest: /etc/zabbix/zabbix_agent2.conf
-    owner: root
-    group: root
-    mode: '0644'
-  notify:
-    - Restart zabbix-agent
