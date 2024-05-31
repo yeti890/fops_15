@@ -1,0 +1,17 @@
+---
+- name: Installing Apache webserver
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+
+- name: Configuring default index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: restart apache
+
+- name: Starting Apache.service
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: yes

@@ -1,0 +1,5 @@
+- include_tasks: checkos.yaml
+- include_tasks: repo.yaml
+- include_tasks: apt.yaml
+- include_tasks: template.yaml
+- include_tasks: service.yaml
