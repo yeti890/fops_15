@@ -1,0 +1,21 @@
+---
+- name: Homework download & unzip Kafka 3.6.0
+  hosts: lab1
+  tasks:
+    - name: Download Kafka from official source
+      ansible.builtin.get_url:
+        url: https://downloads.apache.org/kafka/3.6.0/kafka-3.6.0-src.tgz
+        dest: /tmp/kafka-3.6.0-src.tgz
+        mode: '0755'
+
+    - name: Create a directory for Kafka
+      ansible.builtin.file:
+        path: /tmp/kafka-3.6.0
+        state: directory
+        mode: '0755'
+
+    - name: Unarchive Kafka to target directory
+      ansible.builtin.unarchive:
+        src: /tmp/kafka-3.6.0-src.tgz
+        dest: /tmp/kafka-3.6.0
+        remote_src: yes

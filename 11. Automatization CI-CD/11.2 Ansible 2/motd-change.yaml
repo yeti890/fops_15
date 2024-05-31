@@ -1,0 +1,31 @@
+---
+- name: Homework change motd
+  hosts: lab1
+  become: true
+  vars:
+    custom_message: "That's message configure by Ansible"
+
+  tasks:
+    - name: Change files permissions
+      ansible.builtin.file:
+        path: /etc/update-motd.d/
+        recurse: yes
+        mode: '0400'
+
+    - name: Disable PrintLastLog in sshd_config
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PrintLastLog'
+        line: 'PrintLastLog no'
+
+    - name: Change motd message
+      ansible.builtin.template:
+        src: motd.j2
+        dest: /etc/motd
+      notify: Restart ssh
+
+  handlers:
+    - name: Restart ssh
+      ansible.builtin.service:
+        name: ssh
+        state: restarted
