@@ -1,5 +1,0 @@
-- name: Starting zabbix-agent service
-  ansible.builtin.service:
-    name: zabbix-agent2
-    enabled: true
-    state: started
