@@ -1,0 +1,33 @@
+#cloud-config
+users:
+  - name: ubuntu
+    groups: sudo,docker
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys: 
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBqzD7fzMME4hpcYuL5S4dHwjbvbtHLht0cpIOa+/wRf"
+
+disable_root: true
+timezone: Europe/Moscow
+repo_update: true
+repo_upgrade: true
+apt:
+  preserve_sources_list: true
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+
+runcmd:
+  # Install latest version of Docker
+  - sudo apt remove -y docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc
+  - sudo mkdir -m 0755 -p /etc/apt/keyrings
+  - sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - sudo chmod a+r /etc/apt/keyrings/docker.asc
+  - export ARCH=$(dpkg --print-architecture)
+  - export VERSION_CODENAME=$(awk -F= '/VERSION_CODENAME/{print $2}' /etc/os-release)
+  - echo "deb [arch=$ARCH signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $VERSION_CODENAME stable" | sudo tee /etc/apt/sources.list.d/docker.list
+  - sudo apt update
+  - sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
