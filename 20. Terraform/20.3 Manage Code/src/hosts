@@ -1,0 +1,10 @@
+[webservers]
+web-1    ansible_host=89.169.136.251 fqdn=web-1.ru-central1.internal
+web-2    ansible_host=51.250.94.123 fqdn=web-2.ru-central1.internal
+
+[databases]
+main ansible_host=89.169.128.165  fqdn=main.ru-central1.internal
+replica ansible_host=89.169.152.134  fqdn=replica.ru-central1.internal
+
+[storage]
+storage ansible_host=89.169.131.200  fqdn=storage.ru-central1.internal
