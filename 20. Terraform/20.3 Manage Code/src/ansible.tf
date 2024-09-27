@@ -3,7 +3,7 @@ resource "local_file" "hosts" {
   { 
     webservers = yandex_compute_instance.count_vm
     databases = yandex_compute_instance.for_each-vm
-    storage = yandex_compute_instance.storage
+    storage =  [ yandex_compute_instance.storage ]
   } )
   filename = "${path.module}/hosts"
 }
