@@ -7,4 +7,4 @@ main   ansible_host=89.169.136.99  main.ru-central1.internal
 replica   ansible_host=89.169.159.157  replica.ru-central1.internal
 
 [storage]
-storage-1   ansible_host=89.169.138.131  storage-1.ru-central1.internal
+storage ansible_host=89.169.136.222 fqdn=storage.ru-central1.internal

@@ -13,7 +13,4 @@ ${i["name"]}   ansible_host=${i["network_interface"][0]["nat_ip_address"]}  ${i[
 
 
 [storage]
-%{~ for i in storage ~}
-
-${i["name"]}   ansible_host=${i["network_interface"][0]["nat_ip_address"]}  ${i["fqdn"]}
-%{~ endfor ~}
+${storage.name} ansible_host=${storage.network_interface.0.nat_ip_address} fqdn=${storage.fqdn}
