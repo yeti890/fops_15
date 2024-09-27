@@ -6,9 +6,10 @@ resource "yandex_compute_disk" "disk_vm" {
 }
 
 resource "yandex_compute_instance" "storage" {
-  name        = var.vm_resources.storage.name
-  hostname    = var.vm_resources.storage.name
+  name        = "${var.vm_resources.storage.name}-${count.index + 1}"
+  hostname    = "${var.vm_resources.storage.name}-${count.index + 1}"
   platform_id = var.vm_platform_id
+  count       = var.vm_resources.storage.count
   
   depends_on = [ yandex_compute_disk.disk_vm ]
 

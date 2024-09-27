@@ -1,14 +1,19 @@
 [webservers]
-%{ for count_vm in webservers ~}
-${count_vm.name}    ansible_host=${count_vm.nat_ip_address} fqdn=${count_vm.fqdn}
-%{ endfor ~}
+%{~ for i in webservers ~}
+
+${i["name"]}   ansible_host=${i["network_interface"][0]["nat_ip_address"]}  ${i["fqdn"]}
+%{~ endfor ~}
+
 
 [databases]
-%{ for for_each-vm in databases ~}
-${for_each-vm.name} ansible_host=${for_each-vm.nat_ip_address}  fqdn=${for_each-vm.fqdn}
-%{ endfor ~}
+%{~ for i in databases ~}
+
+${i["name"]}   ansible_host=${i["network_interface"][0]["nat_ip_address"]}  ${i["fqdn"]}
+%{~ endfor ~}
+
 
 [storage]
-%{ for disk_vm in storage ~}
-${disk_vm.name} ansible_host=${disk_vm.nat_ip_address}  fqdn=${disk_vm.fqdn}
-%{ endfor ~}
+%{~ for i in storage ~}
+
+${i["name"]}   ansible_host=${i["network_interface"][0]["nat_ip_address"]}  ${i["fqdn"]}
+%{~ endfor ~}
