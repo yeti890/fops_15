@@ -8,9 +8,9 @@ RUN set -xe \
 WORKDIR /app
 COPY . .
 
-RUN python3 -m venv venv
-RUN ls -l
-RUN . venv/bin/activate && pip install --no-cache-dir -r requirements.txt 
+RUN set -xe \
+    && python3 -m venv venv \ 
+    && . venv/bin/activate && pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8000
 CMD ["./venv/bin/python", "main.py"]
