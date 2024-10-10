@@ -1,0 +1,16 @@
+FROM python:3.9-slim
+
+RUN set -xe \
+    && apt update \ 
+    && apt install -y python3-venv \ 
+    && rm -rf /var/lib/apt/lists/* 
+
+WORKDIR /app
+COPY . .
+
+RUN python3 -m venv venv
+RUN ls -l
+RUN . venv/bin/activate && pip install --no-cache-dir -r requirements.txt 
+
+EXPOSE 8000
+CMD ["./venv/bin/python", "main.py"]
