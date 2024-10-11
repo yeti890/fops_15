@@ -28,7 +28,7 @@ services:
       - .env
     volumes:
       - db_data:/var/lib/mysql
-    
+
 
 volumes:
   db_data:
