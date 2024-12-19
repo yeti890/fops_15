@@ -1,0 +1,15 @@
+---
+  el:
+    hosts:
+      centos7:
+        ansible_connection: docker
+        ansible_user: root
+  deb:
+    hosts:
+      ubuntu:
+        ansible_connection: docker
+        ansible_user: root
+  local:
+    hosts:
+      myhost:
+        ansible_connection: local

@@ -1,0 +1,14 @@
+services:
+  deb:
+    build:
+      dockerfile: Dockerfile
+    container_name: ubuntu
+    hostname: ubuntu
+    restart: unless-stopped
+    tty: true
+  centos:
+    image: almalinux
+    container_name: centos7
+    hostname: centos7
+    restart: unless-stopped
+    tty: true
