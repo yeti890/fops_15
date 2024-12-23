@@ -1,0 +1,79 @@
+---
+- name: Install Clickhouse
+  gather_facts: false
+  hosts: clickhouse
+  become: true
+  tasks:
+    - name: Clickhouse
+      block:
+        - name: Get clickhouse distribute
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/deb/pool/main/c/{{ item }}/{{ item }}_{{ clickhouse_version }}_arm64.deb"
+            dest: "/tmp/{{ item }}_{{ clickhouse_version }}_arm64.deb"
+            mode: '777'
+          with_items: "{{ clickhouse_packages }}"
+      rescue:
+        - name: Get clickhouse distribute
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_{{ clickhouse_version }}_arm64.deb"
+            dest: "/tmp/clickhouse-common-static_{{ clickhouse_version }}_arm64.deb"
+            mode: '644'
+
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+    - name: Copy default password file
+      ansible.builtin.copy:
+        src: default.xml
+        dest: /etc/clickhouse-server/users.d/default.xml
+        owner: clickhouse
+        group: clickhouse
+        mode: '0600'
+
+    - name: Create database
+      ansible.builtin.command: "clickhouse-client  --password='1234567' -q 'CREATE DATABASE logs;'"
+      register: create_db
+      failed_when: create_db.rc != 0 and create_db.rc != 82
+      changed_when: create_db.rc == 0
+
+  handlers:
+    - name: Start clickhouse service
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: restarted
+
+- name: Install vector
+  hosts: clickhouse
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Vector
+      block:
+        - name: Get Vector distribute
+          ansible.builtin.get_url:
+            url: "https://apt.vector.dev/pool/v/ve/vector_0.41.1-1_arm64.deb"
+            dest: "/tmp/vector.deb"
+            mode: '644'
+
+        - name: Install Vector
+          ansible.builtin.apt:
+            deb: /tmp/vector.deb
+          notify: Start vector service
+
+        - name: Vector config
+          ansible.builtin.template:
+            src: templates/vector.j2
+            dest: /etc/vector/vector.yaml
+            group: vector
+            mode: '644'
+          tags:
+            - config_vector
+          notify: Start vector service
+
+        - name: Flush handlers
+          ansible.builtin.meta: flush_handlers
+  handlers:
+    - name: Start vector service
+      ansible.builtin.service:
+        name: vector
+        state: restarted
