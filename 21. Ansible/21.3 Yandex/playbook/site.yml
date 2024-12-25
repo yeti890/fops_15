@@ -1,0 +1,149 @@
+---
+- name: Install Clickhouse
+  hosts: clickhouse
+  remote_user: volser
+  tasks:
+    - name: Clickhouse
+      block:
+        - name: Get clickhouse distribute
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/deb/pool/main/c/{{ item }}/{{ item }}_{{ clickhouse_version }}_amd64.deb"
+            dest: "/tmp/{{ item }}_{{ clickhouse_version }}_amd64.deb"
+            mode: '644'
+          with_items: "{{ clickhouse_packages }}"
+      rescue:
+        - name: Get clickhouse distribute
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb"
+            dest: "/tmp/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb"
+            mode: '644'
+
+    - name: Install clickhouse packages
+      ansible.builtin.apt:
+        deb: "{{ item }}"
+      become: true
+      with_items:
+        - /tmp/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb
+        - /tmp/clickhouse-client_{{ clickhouse_version }}_amd64.deb
+        - /tmp/clickhouse-server_{{ clickhouse_version }}_amd64.deb
+      notify: Start clickhouse service
+
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+    - name: Copy default password file
+      ansible.builtin.copy:
+        src: default.xml
+        dest: /etc/clickhouse-server/users.d/default.xml
+        owner: clickhouse
+        group: clickhouse
+        mode: '0600'
+      become: true
+
+    - name: Sleep for 60 seconds and continue with play
+      ansible.builtin.wait_for:
+        timeout: 60
+      delegate_to: localhost
+
+    - name: Create database
+      ansible.builtin.command: "clickhouse-client  --password='1234567' -q 'CREATE DATABASE logs;'"
+      register: create_db
+      failed_when: create_db.rc != 0 and create_db.rc != 82
+      changed_when: create_db.rc == 0
+
+  handlers:
+    - name: Start clickhouse service
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: restarted
+
+
+- name: Install Vector
+  hosts: vector
+  remote_user: volser
+  tasks:
+    - name: Download Vector distribute
+      ansible.builtin.get_url:
+        url: "https://apt.vector.dev/pool/v/ve/vector_0.40.1-1_{{ arch }}.deb"
+        dest: "/tmp/vector_0.40.1-1_{{ arch }}.deb"
+        mode: '644'
+    - name: Install Vector distribute
+      become: true
+      ansible.builtin.apt:
+        deb: /tmp/vector_0.40.1-1_{{ arch }}.deb
+      notify: Start vector service
+      tags: install vector
+    - name: Vector config
+      become: true
+      ansible.builtin.template:
+        src: templates/vector.j2
+        dest: /etc/vector/vector.yaml
+        mode: '644'
+      tags: config vector
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+  handlers:
+    - name: Start vector service
+      become: true
+      ansible.builtin.service:
+        name: vector
+        state: restarted
+
+
+- name: Install Nginx
+  hosts: lighthouse
+  remote_user: volser
+  become: true
+  tasks:
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Remove default nginx configuration
+      ansible.builtin.file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: Nginx config
+      ansible.builtin.template:
+        src: templates/nginx.j2
+        dest: /etc/nginx/sites-available/static-site-config
+        mode: '644'
+
+    - name: Enable website configuration
+      ansible.builtin.file:
+        src: /etc/nginx/sites-available/static-site-config
+        dest: /etc/nginx/sites-enabled/static-site-config
+        state: link
+
+    - name: Ensure nginx is running
+      ansible.builtin.systemd:
+        name: nginx
+        state: started
+        enabled: true
+
+- name: Install LightHouse
+  hosts: lighthouse
+  remote_user: volser
+  become: true
+  tasks:
+    - name: Install git
+      ansible.builtin.apt:
+        name: git
+        state: present
+
+    - name: Remove default nginx site
+      ansible.builtin.file:
+        path: //var/www/html/index.nginx-debian.html
+        state: absent
+
+    - name: Git clone
+      ansible.builtin.git:
+        repo: https://github.com/VKCOM/lighthouse
+        dest: /var/www/html/
+        version: "master"
+      tags: instlight
