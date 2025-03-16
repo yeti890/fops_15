@@ -45,10 +45,11 @@
 2. Убедиться, что nginx не стартует. В качестве Init-контейнера взять busybox.
 3. Создать и запустить Service. Убедиться, что Init запустился.
 4. Продемонстрировать состояние пода до и после запуска сервиса.  
-![screenshot](../screenshots/k8s-deploy-init.png)  
-[init-deployment.yml](./deployment-init.yml)  
+![screenshot](../screenshots/k8s-deploy-init.png)   
 [init-service.yml](./service-init.yml)  
-
+### UPD: заменил sleep 30 на ожидание доступности сервиса:
+![screenshot](../screenshots/k8s-redeploy-init.png)  
+[init-deployment.yml](./deployment-init.yml)  
 ------
 
 ### Правила приема работы

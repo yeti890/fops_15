@@ -20,4 +20,4 @@ spec:
       initContainers:
       - name: delay
         image: busybox
-        command: [ 'sleep', '30' ]
+        command: ['sh', '-c', "until nslookup nginx-init-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for service; sleep 2; done"]
