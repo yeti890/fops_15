@@ -19,6 +19,7 @@ spec:
         volumeMounts:
           - mountPath: "/sharedvolume"
             name: volume
+
       - name: multitool
         image: wbitt/network-multitool
         command: ['sh', '-c', 'tail -f /sharedvolume/date.log']

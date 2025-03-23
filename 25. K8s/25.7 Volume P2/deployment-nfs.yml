@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-multitool
+  labels:
+    app: mttool
+spec:
+  selector:
+    matchLabels:
+      app: mttool
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mttool
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        ports:
+        - containerPort: 8080
+        env: 
+          - name: HTTP_PORT
+            value: "8080"
+        volumeMounts:
+        - name: nfs
+          mountPath: "/data"
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: pvc-nfs

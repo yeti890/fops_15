@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-multitool-busybox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mttool-bbox
+  template:
+    metadata:
+      labels:
+        app: mttool-bbox
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ['sh', '-c', 'while true; do echo "current date = $(date)" >> /sharedvolume/date.log; sleep 5; done']
+        volumeMounts:
+          - name: volume-pvc
+            mountPath: /sharedvolume
+
+      - name: multitool
+        image: wbitt/network-multitool
+        volumeMounts:
+          - name: volume-pvc
+            mountPath: /sharedvolume
+      volumes:
+        - name: volume-pvc
+          persistentVolumeClaim:
+            claimName: pvc-vol
