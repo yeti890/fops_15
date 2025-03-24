@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+data:
+  index.html: |
+    <html>
+    <head><title>HTTPS</title></head>
+      <pre>
+     /\_/\  
+    ( o.o ) 
+     > ^ <
+      </pre>
+    </body>
+    </html>

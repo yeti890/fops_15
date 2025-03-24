@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-index
+data:
+  index.html: |
+    <html>
+    <head><title>Meow</title></head>
+    <body style="text-align:center; font-size: 24px;">
+      <pre>
+     /\_/\  
+    ( o.o ) 
+     > ^ <
+      </pre>
+    </body>
+    </html>
