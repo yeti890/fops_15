@@ -1,0 +1,8 @@
+apps:
+  - name: nginx-app-stage
+    namespace: stage
+    image:
+      repository: nginx
+      tag: 1.21.6
+    replicas: 2
+    containerPort: 80

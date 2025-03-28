@@ -1,0 +1,8 @@
+apps:
+  - name: nginx-app-prod
+    namespace: prod
+    image:
+      repository: nginx
+      tag: 1.23.0
+    replicas: 3
+    containerPort: 80
