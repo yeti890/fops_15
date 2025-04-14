@@ -32,6 +32,8 @@ Resource Terraform для Yandex Cloud:
 ![screenshot](../screenshots/cloud-3vm.png)  
 ![screenshot](../screenshots/cloud-ping.png)  
 
+### Решение находится [тут](./src/)  
+
 ---
 ### Задание 2. AWS* (задание со звёздочкой)
 
