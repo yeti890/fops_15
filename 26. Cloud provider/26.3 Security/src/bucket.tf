@@ -19,9 +19,9 @@ resource "yandex_resourcemanager_folder_iam_member" "bucket-editor" {
 
 // Grant encrypt and decrypt access
 resource "yandex_resourcemanager_folder_iam_member" "encrypt-decrypt" {
-    folder_id = var.folder_id
-    role      = "kms.keys.encrypterDecrypter"
-    member    = "serviceAccount:${yandex_iam_service_account.sa-bucket.id}"
+    folder_id   = var.folder_id
+    role        = "kms.keys.encrypterDecrypter"
+    member      = "serviceAccount:${yandex_iam_service_account.sa-bucket.id}"
 }
 
 // Create Static Access Keys
@@ -32,10 +32,10 @@ resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
 
 // Use keys to create bucket
 resource "yandex_storage_bucket" "vologin-bucket" {
-    access_key = yandex_iam_service_account_static_access_key.sa-static-key.access_key
-    secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
-    bucket = "vologin-bucket"
-    acl    = "public-read"
+    access_key  = yandex_iam_service_account_static_access_key.sa-static-key.access_key
+    secret_key  = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
+    bucket      = "vologin-bucket"
+    acl         = "public-read"
     server_side_encryption_configuration {
         rule {
             apply_server_side_encryption_by_default {
